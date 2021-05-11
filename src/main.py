@@ -37,24 +37,14 @@ def sitemap():
 def create_family_tree():
     members = smith_family.getAllMembers()
     grandparent = members[0]
-    parent_1 = smith_family.createFamilyMember("Allan", 40, (grandparent['id']))
-    parent_2 = smith_family.createFamilyMember("Eric", 38, (grandparent['id']))
-    p_1_child_1 = smith_family.createFamilyMember("Zoey", 21, (parent_1['id']))
-    p_1_child_2 = smith_family.createFamilyMember("Van", 17, (parent_1['id']))
-    p_2_child_1 = smith_family.createFamilyMember("Luke", 19, (parent_2['id']))
-    p_2_child_2 = smith_family.createFamilyMember("Hailey", 16, (parent_2['id']))
+    parent_1 = smith_family.createFamilyMember(1, "Allan", 40, (grandparent['0_id']), "Joe")
+    p_1_child_1 = smith_family.createFamilyMember(3, "Zoey", 21, (parent_1['0_id']), "Allan")
+    p_1_child_2 = smith_family.createFamilyMember(5, "Van", 17, (parent_1['0_id']), "Allan")
+    parent_2 = smith_family.createFamilyMember(2, "Eric", 38, (grandparent['0_id']), "Joe")
+    p_2_child_1 = smith_family.createFamilyMember(4, "Luke", 19, (parent_2['0_id']), "Eric")
+    p_2_child_2 = smith_family.createFamilyMember(6, "Hailey", 16, (parent_2['0_id']), "Eric")
     family_tree = smith_family.getAllMembers()
     return jsonify(family_tree), 200
-
-@app.route('/members/all')
-def get_members():
-    members = smith_family.getAllMembers()
-    return jsonify(members), 200
-
-@app.route('/member/<int:id>')
-def get_single_member(id):
-    member = smith_family.getSingleMember(id)
-    return jsonify(member), 200
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
